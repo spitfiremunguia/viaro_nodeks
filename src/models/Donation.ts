@@ -1,0 +1,20 @@
+export interface Donation
+{
+    Frequency:number,
+    Amount:number,
+    CardType:string,
+    CardNumber:string,
+    CVV:string,
+    NameCard:string,
+    ExpirationDate:string,
+    Email:string,
+    Country:string,
+    Address1:string,
+    Address2:string,
+    City:string,
+    State:string,
+    ZipCode:string,
+    AgencyId:string,
+    Date:string,
+    UserId:string
+}
