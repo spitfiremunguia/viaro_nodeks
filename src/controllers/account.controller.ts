@@ -18,8 +18,6 @@ export class AccountController
     public async GetUser(id:string)
     {
         // validate userid
-        if(!objectidRegex.test(id))
-            throw new CustomError(400,'INVALID USER ID');
         const user=await this.accountService.GetUser(id);
         if(!user)
             throw new CustomError(404,'USER NOT FOUND');
@@ -28,20 +26,9 @@ export class AccountController
     }
     public async CreateAccount(account:Account)
     {
-
-        if(!account.credentials.username)
-            throw new CustomError(400,'INVALID USERNAME');
-        if(!account.credentials.password)
-            throw new CustomError   (400,'INVALID PASSWORD');
-        if(!account.user.name)
-            throw new CustomError   (400,'INVALID NAME');
-        if(!account.user.lastname)
-            throw new CustomError   (400,'INVALID LASTNAME');
         const usernameExists=await this.accountService.UsernameExists(account.credentials.username);
         if(usernameExists)
-        {
             throw new CustomError   (400,'USERNAME NOT AVAILABLE');
-        }
         // need to encryp account credentials first
         const id=await this.accountService.CreateAccount(account);
         // create token
