@@ -14,8 +14,6 @@ export class AccountService{
     public async CreateAccount(account:Account)
     {
         try{
-            account.credentials.username="";
-            account.credentials.password="";
             const insertedId=await this.accountRepository.addAccount(account);
             return insertedId;
         }
