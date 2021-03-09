@@ -1,6 +1,7 @@
 import {Donation} from '../models/Donation';
 import {DonationRepository}from '../repositories/donation.repository';
 import {AgencyRepository} from '../repositories/agency.repository';
+import { CustomError } from '../models/CustomError';
 
 
 export class DonationService{
@@ -17,11 +18,12 @@ export class DonationService{
     public async CreateDonation(donation:Donation)
     {
         try{
+            
             const insertedId=await this.donationRepisitory.addDonation(donation);
             return insertedId;
         }
         catch(e){
-            console.log(`ERROR AT SERVICE: ${e}`);
+            throw new CustomError(400,e.message);
         }
     }
 
@@ -48,7 +50,7 @@ export class DonationService{
             return [];
         }
         catch(e){
-            console.log(`ERROR AT SERVICE: ${e}`);
+            throw Error(e);
         }
     }
 

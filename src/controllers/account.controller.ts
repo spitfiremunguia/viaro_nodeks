@@ -30,7 +30,13 @@ export class AccountController
         if(usernameExists)
             throw new CustomError   (400,'USERNAME NOT AVAILABLE');
         // need to encryp account credentials first
-        const id=await this.accountService.CreateAccount(account);
+        let id:string;
+        try{
+             id=await this.accountService.CreateAccount(account);
+        }
+        catch(err){
+            throw new CustomError(400,err.message);
+        }
         // create token
         const newToken=this.authService.createAuthToken(id);
         const result={

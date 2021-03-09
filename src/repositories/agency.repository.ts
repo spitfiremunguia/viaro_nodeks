@@ -20,7 +20,7 @@ export class AgencyRepository
             return result;
         }
         catch(err){
-            console.log(`Error trying to retrieve models at \'agency\' collection: ${err}`);
+            throw Error(`Error trying to retrieve models at \'agency\' collection: ${err}`);
         }
 
     }
@@ -38,7 +38,7 @@ export class AgencyRepository
             return agency;
         }
         catch(err){
-            console.log(`Error trying to retrieve model at \'agency\' collection: ${err}`);
+            throw Error(`Error trying to retrieve model at \'agency\' collection: ${err}`);
         }
 
     }

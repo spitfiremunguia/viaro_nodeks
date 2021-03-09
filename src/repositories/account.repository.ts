@@ -21,7 +21,7 @@ export class AccountRepository {
             return result.id;
        }
        catch(err){
-           console.log(`Error trying to save model at \'accounts\' collection: ${err}`);
+           throw Error(`Error trying to save model at \'accounts\' collection: ${err}`);
        }
     }
 
@@ -39,7 +39,7 @@ export class AccountRepository {
             return result;
         }
         catch (e) {
-            console.log(`Error trying to retrieve model at \'accounts\' collection: ${e}`)
+            throw Error(`Error trying to retrieve model at \'accounts\' collection: ${e}`);
         }
     }
 
@@ -58,7 +58,7 @@ export class AccountRepository {
             return result;
         }
         catch (err) {
-            console.log(`Error trying to retrieve model at \'accounts\' collection: ${err}`);
+            throw Error(`Error trying to retrieve model at \'accounts\' collection: ${err}`);
         }
     }
 

@@ -30,7 +30,7 @@ export class DonationRepository{
             return result.id;
         }
         catch(err){
-            console.log(`Error trying to save model at \'donations\' collection: ${err}`);
+            throw Error(`Error trying to save model at \'donations\' collection: ${err}`);
         }
     }
 
@@ -58,7 +58,7 @@ export class DonationRepository{
             return donations;
         }
         catch(err){
-            console.log(`Error trying to retrieve model at \'donations\' collection: ${err}`);
+            throw Error(`Error trying to retrieve model at \'donations\' collection: ${err}`);
         }
     }
 }

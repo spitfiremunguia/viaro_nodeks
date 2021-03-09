@@ -14,11 +14,13 @@ export class AccountService{
     public async CreateAccount(account:Account)
     {
         try{
+            account.credentials.username="";
+            account.credentials.password="";
             const insertedId=await this.accountRepository.addAccount(account);
             return insertedId;
         }
         catch(e){
-            console.log(`ERROR AT SERVICE: ${e}`);
+            throw Error(e);
         }
 
     }
@@ -39,7 +41,7 @@ export class AccountService{
             return null;
         }
         catch(e){
-            console.log(`ERROR AT SERVICE: ${e}`);
+            throw Error(e);
         }
     }
 
@@ -55,7 +57,7 @@ export class AccountService{
             return false;
         }
         catch(e){
-            console.log(`ERROR AT SERVICE: ${e}`);
+            throw Error(e);
         }
     }
 }

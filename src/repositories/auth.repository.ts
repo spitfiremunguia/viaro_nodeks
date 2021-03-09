@@ -19,7 +19,7 @@ export class AuthRepository{
             return null;
         }
         catch(e){
-            console.log(`Error trying to retrieve model at \'accounts\' collection: ${e}`);
+            throw Error(`Error trying to retrieve model at \'accounts\' collection: ${e}`);
         }
     }
 }

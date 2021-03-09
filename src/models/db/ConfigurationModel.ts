@@ -2,7 +2,7 @@ import {Db} from '../../utils/Db';
 const Schema=Db.Schema;
 
 const ConfigurationSchema=new Schema({
-    uenciasDePago:Array,
+    FrecuenciasDePago:Array,
     CustomAmounts:Array
 });
 
