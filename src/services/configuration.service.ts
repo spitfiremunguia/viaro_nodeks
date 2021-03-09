@@ -1,4 +1,3 @@
-import {Configurations} from '../models/Configurations';
 import {ConfigurationRepository} from '../repositories/configuration.repository';
 
 
@@ -14,11 +13,7 @@ export class ConfigurationService
         try
         {
             const result=await this.configurationRepository.GetConfigurations();
-            if(result&&result.length>0){
-
-                return result[0] as Configurations;
-            }
-            return null;
+            return result;
         }
         catch(e){
             console.log(`ERROR AT SERVICE: ${e}`);

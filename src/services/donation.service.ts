@@ -37,7 +37,7 @@ export class DonationService{
                     donations.push( {
                         Date:x.Date,
                         Amount:x.Amount,
-                        AgencyName:agency[0].Name,
+                        AgencyName:agency.Name,
                         Frequency:x.Frequency,
                         Country:x.Country,
                         Email:x.Email

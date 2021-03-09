@@ -28,7 +28,7 @@ export class DonationController{
         const agency=await this.agencyService.GetAgenciesById(donation.AgencyId);
         if(!agency)
             throw new CustomError(404,"AGENCY NOT FOUND");
-        if(donation.Amount<agency.MinumumDonation)
+        if(donation.Amount<agency.MinimumDonation)
             throw new CustomError(400,"AMOUNT MUST BE GREATER OR EQUAL THAN AGENCY MINIMUM AMOUNT");
         // validate other stuff
         const donationid=await this.donationService.CreateDonation(donation);

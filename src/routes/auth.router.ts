@@ -10,7 +10,7 @@ export class AuthorizationHandler{
     public IsTokenValid=(req:Request,res:Response)=>{
 
         // this will be automated at some point :)
-        const authRepository=new AuthRepository(req.app.get('db'));
+        const authRepository=new AuthRepository();
         const authService=new AuthService(authRepository);
         const controller=new AuthController(authService);
 

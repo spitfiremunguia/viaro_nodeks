@@ -1,4 +1,5 @@
 export interface Agency{
+    Id:string
     Name:string
-    MinumumDonation:number
+    MinimumDonation:number
 }

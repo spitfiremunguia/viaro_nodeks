@@ -27,9 +27,8 @@ body('credentials.password').isLength({min:6})
         return res.status(400).json({errors:errors.array()});
     }
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const accountRepository=new AccountRepository(db);
-    const authRepository=new AuthRepository(db)
+    const accountRepository=new AccountRepository();
+    const authRepository=new AuthRepository()
     const accountService=new AccountService(accountRepository);
     const authServie=new AuthService(authRepository);
     const controller=new AccountController(accountService,authServie);
@@ -53,9 +52,8 @@ check('userid').isMongoId(),
         return res.status(400).json({errors:errors.array()});
     }
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const accountRepository=new AccountRepository(db);
-    const authRepository=new AuthRepository(db)
+    const accountRepository=new AccountRepository();
+    const authRepository=new AuthRepository()
     const accountService=new AccountService(accountRepository);
     const authServie=new AuthService(authRepository);
     const controller=new AccountController(accountService,authServie);

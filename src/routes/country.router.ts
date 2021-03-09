@@ -16,7 +16,7 @@ router.get('/countries',(req,res)=>{
 
     // this will be automated at some point :)
     const db=req.app.get('db');
-    const countryRepository=new CountryRepository(db);
+    const countryRepository=new CountryRepository();
     const countryService=new CountrService(countryRepository);
     const controller=new CountryController(countryService);
     controller.GetCountries('',false).then(result=>{
@@ -37,8 +37,7 @@ check('countryCode').isLength({min:1}).trim(),
     if(!errors.isEmpty())
         return res.status(400).json({errors:errors.array()});
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const countryRepository=new CountryRepository(db);
+    const countryRepository=new CountryRepository();
     const countryService=new CountrService(countryRepository);
     const controller=new CountryController(countryService);
     controller.GetCities(req.params.countryCode.toString()).then(result=>{

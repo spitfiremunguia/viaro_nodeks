@@ -27,10 +27,10 @@ export class AccountService{
         try{
             const result=await this.accountRepository.GetUser(id);
 
-            if(result&&result.length>0){
+            if(result){
                 // create token
-                const accountid=result[0]._id;
-                const user={name:result[0].user.name,lastname:result[0].user.lastname} as User;
+                const accountid=result.id;
+                const user={name:result.user.name,lastname:result.user.lastname} as User;
                 return {
                     accountid,
                     user
@@ -46,9 +46,9 @@ export class AccountService{
     public async UsernameExists(username:string){
         try{
             const result=await this.accountRepository.GetUserCredentialsBy(username);
-            if(result&&result.length>0){
+            if(result){
                 // create token
-                const credentials=result[0].credentials as Credentials;
+                const credentials=result.credentials as Credentials;
                 const exists=credentials.username===username;
                 return exists;
             }

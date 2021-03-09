@@ -14,8 +14,7 @@ router.use('/',(req,res)=>authorizationHandler.IsTokenValid(req,res));
 router.get('/',(req,res)=>{
 
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const configurationRepository=new ConfigurationRepository(db);
+    const configurationRepository=new ConfigurationRepository();
     const configurationService=new ConfigurationService(configurationRepository);
     const controller=new ConfigurationController(configurationService);
     controller.GetConfigurations().then(result=>{

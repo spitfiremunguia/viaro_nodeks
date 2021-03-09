@@ -15,14 +15,7 @@ export class CountrService
         try
         {
             const result=await this.countryRepository.GetCountries(countryCode,getCities);
-            if(result&&result.length>0){
-
-                const countries=result.map(x=>{
-                    return x as Country;
-                })
-                return countries;
-            }
-            return null;
+            return result;
         }
         catch(e){
             console.log(`ERROR AT SERVICE: ${e}`);
@@ -35,15 +28,7 @@ export class CountrService
         try
         {
             const result=await this.countryRepository.GetCities(countryCode);
-
-            if(result&&result.length>0){
-
-                const cities=result.map(x=>{
-                    return x as City;
-                })
-                return cities;
-            }
-            return null;
+            return result;
         }
         catch(e){
             console.log(`ERROR AT SERVICE: ${e}`);

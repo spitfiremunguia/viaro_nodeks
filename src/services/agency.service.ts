@@ -22,9 +22,7 @@ export class AgencyService{
 
         try{
             const result=await this.agencyRepository.GetAgenciesById(id);
-            if(result)
-                return result[0] as Agency;
-            return null;
+            return result;
         }
         catch(e){
             console.log(`ERROR AT SERVICE: ${e}`);

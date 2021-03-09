@@ -32,10 +32,9 @@ body('CVV').isLength({min:3}),
     if(!errors.isEmpty())
         return res.status(400).json({errors:errors.array()});
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const accountRepository=new AccountRepository(db);
-    const donationRepository=new DonationRepository(db)
-    const agencyRepository=new AgencyRepository(db);
+    const accountRepository=new AccountRepository();
+    const donationRepository=new DonationRepository()
+    const agencyRepository=new AgencyRepository();
     const accountService=new AccountService(accountRepository);
     const donationService=new DonationService(donationRepository,agencyRepository);
     const agencyService=new AgencyService(agencyRepository);
@@ -57,10 +56,9 @@ router.get('/getDonations/:userid',
     if(!errors.isEmpty())
         return res.status(400).json({errors:errors.array()});
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const accountRepository=new AccountRepository(db);
-    const donationRepository=new DonationRepository(db)
-    const agencyRepository=new AgencyRepository(db);
+    const accountRepository=new AccountRepository();
+    const donationRepository=new DonationRepository()
+    const agencyRepository=new AgencyRepository();
     const accountService=new AccountService(accountRepository);
     const donationService=new DonationService(donationRepository,agencyRepository);
     const agencyService=new AgencyService(agencyRepository);

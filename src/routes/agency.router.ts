@@ -12,8 +12,7 @@ router.use('/',(req,res)=>authorizationHandler.IsTokenValid(req,res));
 router.get('/',(req,res)=>{
 
     // this will be automated at some point :)
-    const db=req.app.get('db');
-    const agencyRepository=new AgencyRepository(db);
+    const agencyRepository=new AgencyRepository();
     const agencyService=new AgencyService(agencyRepository);
     const controller=new AgencyController(agencyService);
     controller.GetAgencies().then(result=>{

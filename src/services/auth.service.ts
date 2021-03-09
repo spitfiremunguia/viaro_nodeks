@@ -35,15 +35,13 @@ export class AuthService
         try{
             const result=await this.authRepository.VerifyCredentials(credentials);
             // result is an array
-            if(result&&result.length>0){
+            if(result){
                 // create token
-                const accountid=result[0]._id;
-                const newToken=this.createAuthToken(accountid);
+                const newToken=this.createAuthToken(result.Id);
                 return {
-                    accountid,
+                    accountid:result.Id,
                     token:newToken
                 }
-
             }
             return null;
 

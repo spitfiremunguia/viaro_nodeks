@@ -1,38 +1,44 @@
-import { Db, ObjectID } from 'mongodb';
-import * as dotenv from 'dotenv';
-dotenv.config();
-
+import {AgencyModel} from '../models/db/AgencyModel';
+import {Agency} from '../models/Agency';
 
 export class AgencyRepository
 {
-    private db:Db;
-    private collectionName:string;
-    constructor(db:Db){
-        this.db=db;
-        this.collectionName='agency';
-    }
 
     public async GetAgencies()
     {
         try{
-            const agencies=await this.db.collection(this.collectionName).find().toArray();
-            return agencies;
+            const agencies=await AgencyModel.find();
+            const result=[];
+            for(const agencyModel of agencies){
+                const agency={
+                    Id:agencyModel.get('_id'),
+                    Name:agencyModel.get('Name'),
+                    MinimumDonation:agencyModel.get('MinimumDonation')
+                } as Agency;
+                result.push(agency);
+            }
+            return result;
         }
-        catch(e){
-            console.log(`ERROR TRYING TO RETRIEVE AT ${this.collectionName}: ${e}`);
+        catch(err){
+            console.log(`Error trying to retrieve models at \'agency\' collection: ${err}`);
         }
 
     }
     public async GetAgenciesById(id:string)
     {
         try{
-            const agencyId=new ObjectID(id);
-            const query={_id:agencyId};
-            const agencies=await this.db.collection(this.collectionName).find(query).toArray();
-            return agencies;
+            const agencyModel=await AgencyModel.findById(id).exec();
+            if(!agencyModel)
+                return null;
+            const agency={
+                Id:agencyModel.get('_id'),
+                Name:agencyModel.get('Name'),
+                MinimumDonation:agencyModel.get('MinimumDonation')
+            } as Agency;
+            return agency;
         }
-        catch(e){
-            console.log(`ERROR TRYING TO RETRIEVE AT ${this.collectionName}: ${e}`);
+        catch(err){
+            console.log(`Error trying to retrieve model at \'agency\' collection: ${err}`);
         }
 
     }

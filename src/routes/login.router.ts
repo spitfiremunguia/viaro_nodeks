@@ -20,7 +20,7 @@ body('credentials.password').isLength({min:6}),
     const errors=validationResult(req);
     if(!errors.isEmpty())
         return res.status(400).json({errors:errors.array()});
-    const authRepository=new AuthRepository(req.app.get('db'));
+    const authRepository=new AuthRepository();
     const authService=new AuthService(authRepository);
     const controller=new LoginController(authService);
     controller.VerifyCredentials(req.body.credentials as Credentials).then(result=>{
