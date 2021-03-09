@@ -3,12 +3,35 @@ const Schema=Db.Schema;
 
 const AccountSchema=new Schema({
     user:{
-        name:String,
-        lastname:String
+        name:
+        {
+            type:String,
+            trim:true,
+            required:true,
+            minlenght:1,
+            maxlenght:50
+        },
+        lastname:{
+            type:String,
+            trim:true,
+            required:true,
+            minlenght:1,
+            maxlenght:50
+        }
     },
     credentials:{
-        username:String,
-        password:String
+        username:{
+            type:String,
+            trim:true,
+            required:true,
+            minlenght:1,
+        },
+        password:{
+            type:String,
+            trim:true,
+            required:true,
+            minlenght:1,
+        }
     }
 });
 

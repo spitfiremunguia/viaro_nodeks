@@ -3,22 +3,69 @@ const Schema=Db.Schema;
 
 const DonationSchema=new Schema({
     Frequency:Number,
-    Amount:Number,
-    CardType:String,
-    CardNumber:String,
-    CVV:String,
-    NameCard:String,
-    ExpirationDate:String,
-    Email:String,
-    Country:String,
-    Address1:String,
+    Amount:{
+        type:Number,
+        require:true
+    },
+    CardType:{
+        type:String,
+        trim:true,
+        require:true,
+        minlenght:1
+    },
+    CardNumber:{
+        type:String,
+        trim:true,
+        require:true,
+        minlenght:1,
+        maxlenght:19
+    },
+    CVV:{
+        type:String,
+        trim:true,
+        require:true,
+        minlenght:1,
+        maxlenght:4
+    },
+    NameCard:{
+        type:String,
+        require:true
+    },
+    ExpirationDate:{
+        type:String,
+        trim:true,
+        require:true,
+        minlenght:1
+    },
+    Email:{
+        type:String,
+        trim:true,
+        require:true,
+        minlenght:1
+    },
+    Country:{
+        type:String,
+        trim:true,
+        require:true,
+        minlenght:1
+    },
+    Address1:{
+        type:String,
+        require:true
+    },
     Address2:String,
     City:String,
     State:String,
     ZipCode:String,
     AgencyId:String,
-    Date,
-    UserId:String
+    Date:{
+       type:Date,
+       require:true
+    },
+    UserId:{
+        type:String,
+        require:true,
+    }
 });
 
 export const DonationModel=Db.model('donations',DonationSchema);
