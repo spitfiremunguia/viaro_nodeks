@@ -7,6 +7,7 @@ import * as donationRouter from './routes/donation.router';
 import * as agencyRouter from './routes/agency.router';
 import * as countryRouter from './routes/country.router';
 import * as configurationRouter from './routes/configuration.router';
+import * as swaggerRouter from './routes/swagger/swagger.router';
 dotenv.config();
 const app=express();
 app.listen(process.env.APP_PORT,()=>{
@@ -19,4 +20,4 @@ app.use('/donation',donationRouter.default);
 app.use('/agencies',agencyRouter.default);
 app.use('/country',countryRouter.default);
 app.use('/configurations',configurationRouter.default);
-
+app.use('/swagger',swaggerRouter.default);

@@ -1,0 +1,559 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Viaro's Nodejs",
+        "description": "Viaro's Nodejs training project"
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Local Development environment"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Account",
+            "description": "API for accounts and user info management"
+        },
+        {
+            "name": "Login",
+            "description": "API for server's session management"
+        },
+        {
+            "name": "Donation",
+            "description": "API for donations management"
+        },
+        {
+            "name": "Agency",
+            "description": "API for agency management"
+        },
+        {
+            "name": "Country",
+            "description": "API to get countries information"
+        },
+        {
+            "name": "Configurations",
+            "description": "API to get application setting's information"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/account": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Create a new user's account",
+                "requestBody": {
+                    "description": "Account object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/account"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/tokenResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/user/{userid}": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get user info by it's userid",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userid",
+                        "required": true,
+                        "description": "User's Id",
+                        "schema": {
+                            "$ref": "#/definitions/userid"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/tokenResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Authenticate user credentials and create a new session token",
+                "requestBody": {
+                    "description": "User's account credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/credentials"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/tokenResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/donation/saveDonation": {
+            "post": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Create a donation",
+                "requestBody": {
+                    "description": "Donation model",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/donation"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "text/html; charset=utf-8"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/donation/getDonations/{userid}": {
+            "get": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Create a donation",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userid",
+                        "required": true,
+                        "description": "User's Id",
+                        "schema": {
+                            "$ref": "#/definitions/userid"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/donationResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/agencies": {
+            "get": {
+                "tags": [
+                    "Agency"
+                ],
+                "summary": "Create a donation",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/agencyResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/country/countries": {
+            "get": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Get information from all the countries",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/countryResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/country/states/{countryCode}": {
+            "get": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Get information from all the cities from one country",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "countryCode",
+                        "required": true,
+                        "description": "Country ISO code",
+                        "schema": {
+                            "$ref": "#/definitions/countryCode"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/cityResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/configurations": {
+            "get": {
+                "tags": [
+                    "Configurations"
+                ],
+                "summary": "Get app configuration",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/configurationsResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "jwt": {
+                "type": "http",
+                "scheme": "bearer",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "definitions": {
+        "userid": {
+            "type": "string"
+        },
+        "countryCode": {
+            "type": "string"
+        },
+        "userResponse": {
+            "type": "object",
+            "properties": {
+                "accountid": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "lastname": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "tokenResponse": {
+            "type": "object",
+            "properties": {
+                "accountid": {
+                    "type": "object"
+                },
+                "token": {
+                    "type": "object"
+                }
+            }
+        },
+        "donationResponse": {
+            "type": "object",
+            "properties": {
+                "Date": {
+                    "type": "string"
+                },
+                "Amount": {
+                    "type": "number"
+                },
+                "AgencyName": {
+                    "type": "string"
+                },
+                "Frequency": {
+                    "type": "number"
+                },
+                "Country": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                }
+            }
+        },
+        "agencyResponse": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "MinimumDonation": {
+                    "type": "number"
+                }
+            }
+        },
+        "countryResponse": {
+            "type": "object",
+            "properties": {
+                "iso": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "capital": {
+                    "type": "string"
+                },
+                "currency_code": {
+                    "type": "string"
+                },
+                "currency_name": {
+                    "type": "string"
+                },
+                "currency_symbol": {
+                    "type": "string"
+                },
+                "phone": "376",
+                "postal_code_format": {
+                    "type": "string"
+                },
+                "postal_code_regex": {
+                    "type": "string"
+                },
+                "languages": {
+                    "type": "object"
+                },
+                "country_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "cityResponse":{
+            "type":"object",
+            "properties":{
+                "iso":{"type":"string"},
+                "country":{"type":"string"},
+                "capital":{"type":"string"},
+                "currency_code":{"type":"string"},
+                "currency_name":{"type":"string"},
+                "currency_symbol":{"type":"string"},
+                "phone":{"type":"string"},
+                "postal_code_format":{"type":"string"},
+                "postal_code_regex":{"type":"string"},
+                "languages":{"type":"object"},
+                "country_id":{"type":"string"},
+                "cities":{"type":"object"}
+            }
+
+        },
+        "configurationsResponse":{
+            "type":"object",
+            "properties":{
+                "FrecuenciasDePago":{"type":"object"},
+                "CustomAmounts":{"type":"object"}
+            }
+        },
+        "credentials": {
+            "type": "object",
+            "properties": {
+                "credentials": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "account": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "lastname": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "credentials": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "donation": {
+            "type": "object",
+            "properties": {
+                "Frequency": {
+                    "type": "number"
+                },
+                "Amount": {
+                    "type": "number"
+                },
+                "CardType": {
+                    "type": "string"
+                },
+                "CardNumber": {
+                    "type": "string"
+                },
+                "CVV": {
+                    "type": "string"
+                },
+                "NameCard": {
+                    "type": "string"
+                },
+                "ExpirationDate": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Country": {
+                    "type": "string"
+                },
+                "Address1": {
+                    "type": "string"
+                },
+                "Address2": {
+                    "type": "string"
+                },
+                "City": {
+                    "type": "string"
+                },
+                "State": {
+                    "type": "string"
+                },
+                "ZipCode": {
+                    "type": "string"
+                },
+                "AgencyId": {
+                    "type": "string"
+                },
+                "Date": {
+                    "type": "string"
+                },
+                "UserId": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

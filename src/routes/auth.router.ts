@@ -21,7 +21,7 @@ export class AuthorizationHandler{
             }
         }
         catch(err){
-            errorHandler.ErrorHandler(err,req,res);
+            return errorHandler.ErrorHandler(err,req,res);
         }
 
         const bearer = bearerHeader.split(' ');
@@ -38,7 +38,7 @@ export class AuthorizationHandler{
 
         })
         .catch(err=>{
-           errorHandler.ErrorHandler(err,req,res);
+           return errorHandler.ErrorHandler(err,req,res);
         });
     };
 
