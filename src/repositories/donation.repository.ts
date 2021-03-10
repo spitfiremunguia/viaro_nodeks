@@ -10,7 +10,7 @@ export class DonationRepository{
                 Frequency:donation.Frequency,
                 Amount:donation.Amount,
                 CardType:donation.CardType,
-                CardNumber:donation.CardType,
+                CardNumber:donation.CardNumber,
                 CVV:donation.CVV,
                 NameCard:donation.NameCard,
                 ExpirationDate:donation.ExpirationDate,
