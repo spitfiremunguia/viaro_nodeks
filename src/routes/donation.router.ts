@@ -13,8 +13,6 @@ import {ErrorHandler} from '../utils/errorHandler';
 const authorizationHandler=new AuthorizationHandler();
 const errorHandler=new ErrorHandler();
 const router=express.Router();
-
-
 router.use('/',(req,res)=>authorizationHandler.IsTokenValid(req,res));
 
 router.post('/saveDonation',
@@ -71,6 +69,40 @@ router.get('/getDonations/:userid',
         next(errorHandler.ErrorHandler(err,req,res));
     });
 });
+
+router.get('/getDonations/worksheet/:userid',
+    check('userid').isMongoId(),
+    (req,res,next)=>{
+    const errors=validationResult(req);
+    if(!errors.isEmpty())
+        return res.status(400).json({errors:errors.array()});
+    // this will be automated at some point :)
+    const accountRepository=new AccountRepository();
+    const donationRepository=new DonationRepository()
+    const agencyRepository=new AgencyRepository();
+    const accountService=new AccountService(accountRepository);
+    const donationService=new DonationService(donationRepository,agencyRepository);
+    const agencyService=new AgencyService(agencyRepository);
+    const controller=new DonationController(donationService,accountService,agencyService);
+    controller.GetUserDonationsFile(req.params.userid.toString()).then(result=>{
+        res.setHeader("Content-Type",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        res.setHeader(
+            "Content-Disposition",
+            "attachment; filename=" + "UserDonations.xlsx"
+        );
+        return result.xlsx.write(res).then(()=>{
+            res.status(200).end();
+        })
+
+    })
+    .catch(err=>{
+        next(errorHandler.ErrorHandler(err,req,res));
+    });
+});
+
+
+
 // Handle errors
 
 

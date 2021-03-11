@@ -309,8 +309,41 @@
                     }
                 ]
             }
+        },
+        "/donation/getDonations/worksheet/{userid}": {
+            "get": {
+                "tags": [
+                    "Donation"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userid",
+                        "required": true,
+                        "description": "User's Id",
+                        "schema": {
+                            "$ref": "#/definitions/userid"
+                        }
+                    }
+                ],
+                "summary": "Get excel file with user donations",
+                "produces": [
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
         }
     },
+    
     "components": {
         "securitySchemes": {
             "jwt": {

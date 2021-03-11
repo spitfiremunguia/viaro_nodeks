@@ -45,10 +45,13 @@ export class DonationController{
         return donationid;
     }
 
-    private isNumber(value: string | number): boolean
-            {
-            return ((value != null) &&
-                    (value !== '') &&
-                    !isNaN(Number(value.toString())));
-            }
+    public async GetUserDonationsFile(userid:string){
+        // validate user existence
+        const userdata=await this.accountService.GetUser(userid);
+        if(!userdata)
+            throw new CustomError(404,"USER NOT FOUND");
+        const userWorkSheet=await this.donationService.CreateDonationWorksheet(userid);
+        return userWorkSheet;
+    }
+
 }
