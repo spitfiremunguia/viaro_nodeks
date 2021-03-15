@@ -1,6 +1,6 @@
 import cron from 'cron';
 import { DonationModel } from "../models/db/DonationModel";
-const donationCron = new cron.CronJob("0 0 */2 * *", async () => {
+const donationCron = new cron.CronJob("0 0-59/1 * * * *", async () => {
 
     const donation = new DonationModel({
         Frequency: 1,
